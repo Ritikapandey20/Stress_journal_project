@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Journal PLSD</title>
+    <style>
+        body {
+            height: 720vh;
+            margin: 0;
+            background:linear-gradient(to bottom, #212122, #666362);
+            font-family: Georgia, serif;
+            color: #D3D3D3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 40px;
+			color:#e8e7d5;
+            background-color: #2e2e2e;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 3rem;
+            color:#e6e6e7 ;
+            font-family: allegro;
+            text-align: center;
+            margin-top: 20px;
+        }
+        hr {
+            border: none;
+            height: 4px;
+            background-color: #4d4f56;
+            margin: 30px 0;
+        }
+        .quote {
+            font-size: 1.5rem;
+            color: #e6e6e7 ;
+            font-family: "Times New Roman", Times, serif;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        u {
+            display: block;
+            margin: 20px 0;
+            font-style: italic;
+            color: #f0e68c;
+        }
+        pre {
+            white-space: pre-wrap;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-family: Georgia, serif;
+        }
+        
+        /* Pie Chart Styles */
+        .pie-chart-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 50px 0;
+        }
+        
+        .pie-chart-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 50px;
+        }
+        
+        .pie {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: absolute;
+            clip: rect(0px, 300px, 300px, 150px);
+        }
+        
+        /* Assignments & Deadlines - 35% - #000B438 */
+        .slice1 {
+            transform: rotate(20deg);
+            z-index: 5;
+        }
+        
+        .slice1-filler {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #232B2B;
+            position: absolute;
+            clip: rect(0px, 150px, 300px, 0px);
+            animation: fill-1 2s linear forwards;
+            transform: rotate(20deg);
+        }
+        
+        @keyframes fill-1 {
+            0% { transform: rotate(20deg); }
+            100% { transform: rotate(126deg); } /* 35% = 126° */
+        }
+        
+        /* Homesickness - 20% - #1976d2 */
+        .slice2 {
+            transform: rotate(146deg); /* Starting where slice1 ends */
+            z-index: 4;
+            opacity: 0;
+            animation: appear 0.1s linear 2s forwards;
+        }
+        
+        .slice2-filler {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #2f5f52;;
+            position: absolute;
+            clip: rect(0px, 150px, 300px, 0px);
+            animation: fill-2 1.8s linear 2s forwards;
+            transform: rotate(0deg);
+        }
+        
+        @keyframes fill-2 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(72deg); } /* 20% = 72° */
+        }
+        
+        /* Peer Pressure - 15% - #2196f3 */
+        .slice3 {
+            transform: rotate(218deg); /* Starting where slice2 ends */
+            z-index: 3;
+            opacity: 0;
+            animation: appear 0.1s linear 3.8s forwards;
+        }
+        
+        .slice3-filler {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color:  #008080;
+            position: absolute;
+            clip: rect(0px, 150px, 300px, 0px);
+            animation: fill-3 1.5s linear 3.8s forwards;
+            transform: rotate(0deg);
+        }
+        
+        @keyframes fill-3 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(54deg); } /* 15% = 54° */
+        }
+        
+        /* Technology Overload - 15% - #64b5f6 */
+        .slice4 {
+            transform: rotate(272deg); /* Starting where slice3 ends */
+            z-index: 2;
+            opacity: 0;
+            animation: appear 0.1s linear 5.3s forwards;
+        }
+        
+        .slice4-filler {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #20B2AA;;
+            position: absolute;
+            clip: rect(0px, 150px, 300px, 0px);
+            animation: fill-4 1.2s linear 5.3s forwards;
+            transform: rotate(0deg);
+        }
+        
+        @keyframes fill-4 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(54deg); } /* 15% = 54° */
+        }
+        
+        /* Lack of Routine - 15% - #bbdefb */
+        .slice5 {
+            transform: rotate(326deg); /* Starting where slice4 ends */
+            z-index: 1;
+            opacity: 0;
+            animation: appear 0.1s linear 6.5s forwards;
+        }
+        
+        .slice5-filler {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #00FFFF;
+            position: absolute;
+            clip: rect(0px, 150px, 300px, 0px);
+            animation: fill-5 1.2s linear 6.5s forwards;
+            transform: rotate(0deg);
+        }
+        
+        @keyframes fill-5 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(54deg); } /* 15% = 54° */
+        }
+        
+        @keyframes appear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .pie-overlay {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .center-circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #ffcb9a;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #2c3e50;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 20;
+        }
+        
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            max-width: 400px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation-name: fadeIn;
+            animation-duration: 0.5s;
+            animation-fill-mode: forwards;
+        }
+        
+        .legend-item:nth-child(1) { animation-delay: 2s; }
+        .legend-item:nth-child(2) { animation-delay: 4.5s; }
+        .legend-item:nth-child(3) { animation-delay: 6.8s; }
+        .legend-item:nth-child(4) { animation-delay: 8.5s; }
+        .legend-item:nth-child(5) { animation-delay: 10.2s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .color-1 { background-color: #232B2B; }
+        .color-2 { background-color: #2f5f52; }
+        .color-3 { background-color: #008080; }
+        .color-4 { background-color: #20B2AA; }
+        .color-5 { background-color: #00FFFF; }
+        
+        .percentage {
+            font-weight: bold;
+            margin-left: auto;
+        }
+        
+        .stress-source {
+            font-weight: bold;
+        }
+        
+        .explanation {
+            font-size: 0.9em;
+            color: #D3D3D3;
+            margin-top: 3px;
+            margin-left: 30px;
+        }
+        
+        .chart-title {
+            color: #e6e6e7;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+		 h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+			font-family: allegro;
+        }
+        
+        .week-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .day-card {
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .day-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .day-content {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        /* Day specific styles */
+        .monday {
+            background-color: #2f5f52; /* Light purple */
+            color:  #ffcb9a;
+        }
+        
+        .tuesday {
+            background-color: #008080; /* Light red */
+            color:  #ffcb9a;
+        }
+        
+        .wednesday {
+            background-color: #20B2AA; /* Light red */
+            color:  #ffcb9a;
+        }
+        
+        .thursday {
+            background-color: #008080; /* Light red */
+            color:  #ffcb9a;
+        }
+        
+        .friday {
+            background-color:  #2f5f52; /* Light blue */
+            color:  #ffcb9a;
+        }
+        
+        .saturday {
+            background-color: #232B2B; /* Light green */
+            color:  #ffcb9a;
+        }
+        
+        .sunday {
+            background-color: #232B2B;/* Darker red */
+            color:  #ffcb9a;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #ccc;
+			}
+    </style>
+</head>
+<body>
+    <h1>Stress Journal</h1>
+    <hr>
+    <div class="container">
+		<center><img style="border-radius: 50%;" src="images/my profile.png"></center>
+		<br>
+		<center><font size="5"  color="#FFFFFF" >Ritika pandey</font></center>
+		<br>
+		<center><font size="6"  color="#FFFFFF" face="fantasy">My Stress Management Journey</font></center>
+        <div class="quote">
+            <p><b>Stress acts as an accelerator:</b> <em>it will push you either forward or backward, but you choose which direction.</em></p>
+        </div>
+        <pre>
+Stress, to me, is like carrying an invisible backpack that gets heavier throughout the day. It's my body and mind's response to pressure, demands, and 
+challenges that feel overwhelming. Sometimes it manifests as racing thoughts at night, tension in my shoulders, or that sinking feeling when I look
+ at my to-do list. In small doses, it can motivate me, sharpen my focus, and push me to accomplish things I didn't think possible. The  problem arises
+ when stress becomes chronic—when that backpack never comes off.
+<center><u>"Stress is not what happens to us. It's our response to what happens. And response is something we can choose."</u></center>
+So , let's begin it a journey towards my stress life . 
+        </pre>
+        
+        <!-- Pie Chart Section -->
+        <div class="pie-chart-section">
+            <h2 class="chart-title">Sources of Stress</h2>
+            <div class="pie-chart-container">
+                <!-- Assignments & Deadlines - 35% -->
+                <div class="pie slice1">
+                    <div class="slice1-filler"></div>
+                </div>
+                
+                <!-- Homesickness - 20% -->
+                <div class="pie slice2">
+                    <div class="slice2-filler"></div>
+                </div>
+                
+                <!-- Peer Pressure - 15% -->
+                <div class="pie slice3">
+                    <div class="slice3-filler"></div>
+                </div>
+                
+                <!-- Technology Overload - 15% -->
+                <div class="pie slice4">
+                    <div class="slice4-filler"></div>
+                </div>
+                
+                <!-- Lack of Routine - 15% -->
+                <div class="pie slice5">
+                    <div class="slice5-filler"></div>
+                </div>
+                
+                <!-- Add an overlay for shadow -->
+                <div class="pie-overlay"></div>
+                
+                <!-- Center circle -->
+                <div class="center-circle">Stress<br>Factors</div>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="color-box color-1"></div>
+                    <div>
+                        <div class="stress-source">Assignments & Deadlines</div>
+                        <div class="explanation">The constant pressure of meeting academic expectations and due dates causes significant anxiety.</div>
+                    </div>
+                    <div class="percentage">35%</div>
+                </div>
+                
+                <div class="legend-item">
+                    <div class="color-box color-2"></div>
+                    <div>
+                        <div class="stress-source">Homesickness</div>
+                        <div class="explanation">Being away from family and familiar environments creates feelings of loneliness and emotional distress.</div>
+                    </div>
+                    <div class="percentage">20%</div>
+                </div>
+                
+                <div class="legend-item">
+                    <div class="color-box color-3"></div>
+                    <div>
+                        <div class="stress-source">Peer Pressure</div>
+                        <div class="explanation">Social expectations to conform to group behaviors or standards adds mental and emotional strain.</div>
+                    </div>
+                    <div class="percentage">15%</div>
+                </div>
+                
+                <div class="legend-item">
+                    <div class="color-box color-4"></div>
+                    <div>
+                        <div class="stress-source">Technology Overload</div>
+                        <div class="explanation">Constant connectivity and information bombardment leads to digital fatigue and increased anxiety.</div>
+                    </div>
+                    <div class="percentage">15%</div>
+                </div>
+                
+                <div class="legend-item">
+                    <div class="color-box color-5"></div>
+                    <div>
+                        <div class="stress-source">Lack of Routine</div>
+                        <div class="explanation">Inconsistent schedules and poor time management contribute to feelings of chaos and loss of control.</div>
+                    </div>
+                    <div class="percentage">15%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	
+	<div class="container">
+        <h1><font size="6" face="benguiat bk bt">Weekly Stress Experience</font></h1>
+        
+        <div class="week-container">
+            <div class="day-card sunday">
+                <div class="day-title">Sunday</div>
+                <div class="day-content">
+                   This was the best day of my entire month cause i and hemangi was enjoying taste of freedom in rajkot. Away from all sorts of troubles . Just living life to fullest enjoying food and night outs . 
+                </div>
+            </div>
+            
+            <div class="day-card monday">
+                <div class="day-title">Monday</div>
+                <div class="day-content">
+                    This was the day when we had to return to college because of our BEE submission , bus was of 5:45am and guess what we missed the bus this was 5th and the last level of stress as we were only 2 min late and here i realised the importance 2 min in my life . So then we booked a taxi to reach ahemdabad paying Rs400 per person this wasn't a pocket friendly trip . And when we reached ahemdabad we catched a bus to reach bus station and again we missed our stop far away and a kind uncle made me realised that. After struggling whole day we reached college by 2 'o' clock and we got the breaking news-sir is not present now so the assignments will be summited on next day.
+                </div>
+            </div>
+            
+            <div class="day-card tuesday">
+                <div class="day-title">Tuesday</div>
+                <div class="day-content">
+                    The entire day went romming around the college corridors and even today our BEE submission didn't held cause sir is not present and there was ETC viva on same day. And there was one more stress which was knocking my door for soo many days that i was in the gtu fighter of BEE , hell i doesn't like this subject at all. So , at night i decided to study BEE but wait where is my bag ? i tried to find it but at night nearly around 10 'o' clock i realised i left my bag at college room no 235 . I might be the only human on this earth who came home without bag by not even realising it for soo long . so for today there was no scope of me studying BEE.
+
+                </div>
+            </div>
+            
+            <div class="day-card wednesday">
+                <div class="day-title">Wednesday</div>
+                <div class="day-content">
+                    I run as soon as my clock strike to 10am i run for my bag and it was my 3rd level of stress. And thanks to God i got it in the same place i have left it earlier. The whole day the only subject i tooked seriously was BEE day to night only BEE , i remaind in my 2nd level of stress through out the day from which i suffered from it is rearely i might have met my 1st level of strees ever . 
+                </div>
+            </div>
+            
+			<div class="day-card thursday">
+                <div class="day-title">Thursday</div>
+                <div class="day-content">
+                    Here , hemangi left for her home again the only companion is left of me is bhoomi we were completing our stress journal by taking stress . 
+                </div>
+            </div>
+			
+            <div class="day-card friday">
+                <div class="day-title">Friday</div>
+                <div class="day-content">
+                    Soo , this friday bhoomi has planned to watch a movie called "final destination" i along with two seniors were about to go mehsana to watch it . But suddenly when we all got ready to step out from hostel the movie got cancelled . This was 4th level of stress which was caused by people of mehsana .
+                </div>
+            </div>
+            
+           
+            <div class="day-card saturday">
+                <div class="day-title">Saturday</div>
+                <div class="day-content">
+				    Now , i have completed all my point test and my stress journal as well and there is no stress left but wait shit we have daal-bhati in menu today . Therefore, according to me stress has no end until we are alive we just need to undrstand how to manage it effectively .  
+                </div>
+            </div>
+        </div>
+		<br>
+		<br>
+		<font size="5"  color="FFFFFF" face="fantasy">Stress Triggers</font>
+		<pre>* Exams and assignments: Academic pressure is a significant stressor, especially with deadlines clustering together.
+* Timelines and deadlines: The pressure to complete tasks within specific timeframes.
+* Family situations: Personal issues at home that can affect your mental well-being.
+* Peer pressure: Social expectations that may push you in uncomfortable directions.
+* Uncertainty or lack of planning: Not knowing what's coming or feeling unprepared.
+* Digital distractions: How phones and social media can steal focus and create more work later.
+* Time management challenges: Difficulties balancing various responsibilities.
+
+
+</pre>
+<font size="6"  color="FFFFFF" face="fantasy">Stress Management Resources</font>
+		
+		
+        <div class="container">
+        <div class="quote">
+		
+        <pre><img src="images/FF.png" alt="FF">					<img src="images/spotify.png" alt="FF">					<img src="images/YT.png" alt="FF"><br></pre>
+		<pre>Free Fire                                   				Spotify                                      				YouTube</pre>
+        </div> 
+		</div>
+		
+		<div class="container">
+		<div class="quote">
+		<pre><img src="images/plantation.png" alt="FF">					<img src="images/sketch.png" alt="FF">					<img src="images/star gazing.png" alt="FF"><pre>
+		<pre>Plantation                                   				Sketch                                      				Star Gazing</pre>
+		</div>
+		</div>
+		<div class="container">
+		<div class="quote">
+		<font size="6" face="fantasy">Conclusion</font>
+		<pre>
+		Throughout my stress management journey, I've learned valuable lessons about
+		recognizing,confronting, and ultimately overcoming the challenges of stress in my life.
+		This conclusion reflects on my growth and the strategies that proved most effective for me.
+		When I first began addressing my stress, I faced several challenges
+		Initially, I struggled to identify stress triggers in my daily 
+		life.I even faced stress in doing this project . 
+		making this stress journal project have been a challenge for me 
+		 What once felt like overwhelming moments now appear as manageable challenges, 
+		 thanks to the clarity that journaling has provided. By acknowledging my 
+		 stress instead of ignoring it, I have learned to take mindful and proactive
+		 steps—whether through relaxation techniques, time management, or simply recognizing
+		 when to pause and breathe. This project has not only improved my emotional resilience
+		  but has also empowered me with practical tools to maintain better mental
+		  well-being moving forward. I have learned that stress is everywhere in most of the things we only 
+		  have to learn how to manage it and face it . </pre>
+		</div>
+		
+		
+    </div>
+</body>
+</html>
